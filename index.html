@@ -628,9 +628,9 @@
             creating stunning, sustainable landscapes drives everything we do.
           </p>
           <p>
-            We are a local family-owned business dedicated to providing personalized
-            service and we will be happy to beat any written estimate from a licensed, 
-            bonded, and insured competitor.
+            We are a local family-owned business dedicated to providing
+            personalized service and we will be happy to beat any written
+            estimate from a licensed, bonded, and insured competitor.
           </p>
           <p>
             We believe that every property has unique potential. Whether you're
@@ -758,23 +758,68 @@
           </div>
 
           <div class="form-group">
-            <label for="service"
+            <label
               >Service Interested In
               <span style="color: rgba(240, 234, 216, 0.6); font-size: 0.875rem"
                 >(Select up to 4)</span
               ></label
             >
-            <select id="service" name="service" multiple size="9">
-              <option value="landscape-design">Landscape Design</option>
-              <option value="hardscaping">Hardscaping</option>
-              <option value="irrigation">Irrigation Systems</option>
-              <option value="tree-care">Tree & Plant Installation</option>
-              <option value="desert-landscaping">Desert Landscaping</option>
-              <option value="lighting">Outdoor Lighting</option>
-              <option value="synthetic-turf">Synthetic Turf</option>
-              <option value="natural-sod">Natural SOD</option>
-              <option value="other">Other</option>
-            </select>
+            <div class="custom-dropdown" id="serviceDropdown">
+              <div class="dropdown-selected" id="dropdownSelected">
+                <span class="selected-text">Select services...</span>
+                <span class="dropdown-arrow">▼</span>
+              </div>
+              <div class="dropdown-options" id="dropdownOptions">
+                <label class="dropdown-option">
+                  <input
+                    type="checkbox"
+                    name="service[]"
+                    value="landscape-design"
+                  />
+                  <span>Landscape Design</span>
+                </label>
+                <label class="dropdown-option">
+                  <input type="checkbox" name="service[]" value="hardscaping" />
+                  <span>Hardscaping</span>
+                </label>
+                <label class="dropdown-option">
+                  <input type="checkbox" name="service[]" value="irrigation" />
+                  <span>Irrigation Systems</span>
+                </label>
+                <label class="dropdown-option">
+                  <input type="checkbox" name="service[]" value="tree-care" />
+                  <span>Tree & Plant Installation</span>
+                </label>
+                <label class="dropdown-option">
+                  <input
+                    type="checkbox"
+                    name="service[]"
+                    value="desert-landscaping"
+                  />
+                  <span>Desert Landscaping</span>
+                </label>
+                <label class="dropdown-option">
+                  <input type="checkbox" name="service[]" value="lighting" />
+                  <span>Outdoor Lighting</span>
+                </label>
+                <label class="dropdown-option">
+                  <input
+                    type="checkbox"
+                    name="service[]"
+                    value="synthetic-turf"
+                  />
+                  <span>Synthetic Turf</span>
+                </label>
+                <label class="dropdown-option">
+                  <input type="checkbox" name="service[]" value="natural-sod" />
+                  <span>Natural SOD</span>
+                </label>
+                <label class="dropdown-option">
+                  <input type="checkbox" name="service[]" value="other" />
+                  <span>Other</span>
+                </label>
+              </div>
+            </div>
             <div
               id="service-error"
               style="
