@@ -1,0 +1,70 @@
+// This is your Prisma schema file
+// Run: npx prisma migrate dev --name init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String
+  phone     String?
+  service   String?
+  address   String?
+  message   String
+  status    String   @default("new")   // new | contacted | quoted | won | lost
+  source    String   @default("website_contact_form")
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("leads")
+}
+
+model Client {
+  id              String    @id @default(cuid())
+  firstName       String
+  lastName        String
+  email           String    @unique
+  phone           String?
+  companyName     String?
+  billingAddress  String?
+  serviceAddress  String?
+  city            String?
+  state           String?
+  zip             String?
+  status          String    @default("active")  // active | past | vip
+  leadSource      String?
+  notes           String?
+  taxExempt       Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  projects        Project[]
+
+  @@map("clients")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  clientId    String
+  client      Client   @relation(fields: [clientId], references: [id])
+  status      String   @default("inquiry")  // inquiry | quoted | active | complete | cancelled
+  type        String?  // design | install | maintenance | hardscape | xeriscape
+  startDate   DateTime?
+  endDate     DateTime?
+  budget      Float?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("projects")
+}
