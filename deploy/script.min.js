@@ -1,0 +1,203 @@
+// Scroll reveal animation
+const revealElements = document.querySelectorAll(".reveal");
+
+const revealOnScroll = () => {
+  revealElements.forEach((element) => {
+    const elementTop = element.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+
+    if (elementTop < windowHeight - 100) {
+      element.classList.add("active");
+    }
+  });
+};
+
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll(); // Initial check
+
+// Form submission handler
+document
+  .querySelector(".contact-form")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const submitBtn = form.querySelector(".submit-btn");
+    const originalText = submitBtn.textContent;
+
+    // Disable button and show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = "SENDING...";
+
+    // Collect form data
+    const formData = {
+      firstName: form.firstName.value,
+      lastName: form.lastName.value,
+      email: form.email.value,
+      phone: form.phone.value || "",
+      service: form.service.value || "",
+      additionalServices: form.additionalServices.value || "",
+      address: form.address.value || "",
+      message: form.message.value,
+    };
+
+    try {
+      // Update this URL to match your backend deployment URL
+      const API_URL = "http://localhost:5000/api/contact";
+
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert(
+          "✅ Thank you for your request! We'll be in touch within 24 hours.",
+        );
+        form.reset();
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert(
+        "⚠️ There was an issue submitting your request. Please call us directly at 480-401-5551 or email jurassiclandscapedesign@gmail.com",
+      );
+    } finally {
+      // Re-enable button
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+
+// Custom Cursor Effect
+const cursor = document.querySelector(".cursor");
+const cursorFollower = document.querySelector(".cursor-follower");
+let mouseX = 0;
+let mouseY = 0;
+let cursorX = 0;
+let cursorY = 0;
+let followerX = 0;
+let followerY = 0;
+
+// Update mouse position
+document.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+// Smooth animation loop
+function animateCursor() {
+  // Cursor follows mouse immediately with slight easing
+  const cursorSpeed = 0.2;
+  cursorX += (mouseX - cursorX) * cursorSpeed;
+  cursorY += (mouseY - cursorY) * cursorSpeed;
+
+  // Follower has more lag for trailing effect
+  const followerSpeed = 0.1;
+  followerX += (mouseX - followerX) * followerSpeed;
+  followerY += (mouseY - followerY) * followerSpeed;
+
+  cursor.style.left = cursorX + "px";
+  cursor.style.top = cursorY + "px";
+  cursorFollower.style.left = followerX + "px";
+  cursorFollower.style.top = followerY + "px";
+
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Add hover effects for interactive elements
+const interactiveElements = document.querySelectorAll(
+  "a, button, input, textarea, select, .service-card, .portfolio-item, .testimonial-card",
+);
+
+interactiveElements.forEach((el) => {
+  el.addEventListener("mouseenter", () => {
+    cursor.classList.add("hover");
+    cursorFollower.classList.add("hover");
+  });
+
+  el.addEventListener("mouseleave", () => {
+    cursor.classList.remove("hover");
+    cursorFollower.classList.remove("hover");
+  });
+});
+
+// Hide cursor when leaving window
+document.addEventListener("mouseleave", () => {
+  cursor.classList.add("hidden");
+  cursorFollower.classList.add("hidden");
+});
+
+document.addEventListener("mouseenter", () => {
+  cursor.classList.remove("hidden");
+  cursorFollower.classList.remove("hidden");
+});
+
+// Modal/Lightbox Functionality
+const modal = document.getElementById("portfolioModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalCategory = document.getElementById("modalCategory");
+const beforeImage = document.getElementById("beforeImage");
+const afterImage = document.getElementById("afterImage");
+const portfolioItems = document.querySelectorAll(".portfolio-item.has-modal");
+
+portfolioItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    const title = item.dataset.title;
+    const category = item.dataset.category;
+    const before = item.dataset.before;
+    const after = item.dataset.after;
+
+    modalTitle.textContent = title;
+    modalCategory.textContent = category;
+    beforeImage.src = before;
+    afterImage.src = after;
+
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  });
+});
+
+function closeModal() {
+  modal.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+// Close modal on overlay click
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    closeModal();
+  }
+});
+
+// Close modal on ESC key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && modal.classList.contains("active")) {
+    closeModal();
+  }
+});
+
+// Lazy load portfolio background images
+const lazyPortfolioItems = document.querySelectorAll(".portfolio-item");
+const portfolioObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("loaded");
+        portfolioObserver.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    rootMargin: "50px",
+  },
+);
+
+lazyPortfolioItems.forEach((item) => {
+  portfolioObserver.observe(item);
+});
