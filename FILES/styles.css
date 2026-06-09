@@ -180,6 +180,8 @@ nav {
   height: 180px;
   width: auto;
   filter: drop-shadow(0 0 20px rgba(200, 168, 75, 0.4));
+  opacity: 0.95;
+  mix-blend-mode: screen;
 }
 
 .eyebrow {
@@ -1035,6 +1037,21 @@ footer {
 
   .hero-logo img {
     height: 120px;
+    filter: drop-shadow(0 0 10px rgba(200, 168, 75, 0.2));
+  }
+
+  .headline-dot {
+    display: none;
+  }
+
+  .hero-license::before {
+    content: "";
+    display: block;
+    width: 0.4em;
+    height: 0.4em;
+    background-color: var(--gold);
+    margin: 1rem auto 0.5rem;
+    border-radius: 50%;
   }
 
   h1 {
