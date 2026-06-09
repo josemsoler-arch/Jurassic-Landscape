@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #c8a84b;
+  --leaf: #7caf7c;
+  --dark: #080c08;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lora", serif;
+  background: var(--dark);
+  color: #f0ead8;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gold text-[#0a0e0a] px-8 py-4 font-semibold tracking-wider uppercase text-sm 
+           transition-all duration-300 border-2 border-gold hover:bg-transparent hover:text-gold;
+  }
+
+  .btn-ghost {
+    @apply text-[rgba(240,234,216,0.8)] px-8 py-4 tracking-wider text-sm 
+           border border-[rgba(240,234,216,0.2)] transition-all duration-300 
+           hover:border-leaf hover:text-leaf;
+  }
+}
