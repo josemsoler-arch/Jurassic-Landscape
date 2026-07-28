@@ -73,8 +73,152 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.min.css" />
+
+    <style>
+      /* Sticky Mobile Phone Bar */
+      .mobile-phone-sticky {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #8b4513 0%, #6d3410 100%);
+        padding: 15px 20px;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+        animation: slideUp 0.3s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(100%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+
+      .mobile-phone-sticky a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .mobile-phone-sticky svg {
+        width: 24px;
+        height: 24px;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mobile-phone-sticky {
+          display: block;
+        }
+      }
+
+      /* Guarantee Banner */
+      .guarantee-banner {
+        background: linear-gradient(135deg, #2d5016 0%, #1a3a0f 100%);
+        color: white;
+        padding: 30px 5%;
+        text-align: center;
+        border-top: 3px solid #8b4513;
+        border-bottom: 3px solid #8b4513;
+      }
+
+      .guarantee-banner h2 {
+        font-family: "Cinzel", serif;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .guarantee-banner p {
+        font-size: 1.1rem;
+        max-width: 800px;
+        margin: 0 auto 20px;
+        line-height: 1.6;
+      }
+
+      .guarantee-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(139, 69, 19, 0.3);
+        padding: 12px 30px;
+        border-radius: 50px;
+        border: 2px solid #8b4513;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .guarantee-banner h2 {
+          font-size: 1.5rem;
+        }
+        .guarantee-banner p {
+          font-size: 1rem;
+        }
+      }
+
+      /* Contact Form Enhancement */
+      .contact-guarantee {
+        background: #f0f8f0;
+        border-left: 4px solid #2d5016;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 8px;
+      }
+
+      .contact-guarantee h3 {
+        color: #2d5016;
+        margin: 0 0 10px 0;
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+
+      .contact-guarantee p {
+        margin: 0;
+        color: #333;
+        line-height: 1.6;
+      }
+    </style>
   </head>
   <body>
+    <!-- Sticky Mobile Phone Bar -->
+    <div class="mobile-phone-sticky">
+      <a href="tel:480-401-5551">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"
+          />
+        </svg>
+        <span>Call Now: 480-401-5551</span>
+      </a>
+    </div>
+
     <!-- Custom Cursor -->
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
@@ -142,6 +286,19 @@
         <div class="buttons">
           <a href="#portfolio" class="btn-primary">View Our Work</a>
           <a href="#services" class="btn-ghost">Explore Services</a>
+        </div>
+      </div>
+
+      <!-- Guarantee Banner -->
+      <div class="guarantee-banner">
+        <h2>🏆 Best Price Guarantee</h2>
+        <p>
+          We'll beat any written estimate from a licensed, bonded, and insured
+          competitor. Get the best quality landscaping at the best price —
+          guaranteed.
+        </p>
+        <div class="guarantee-badge">
+          <span>✓ Licensed ✓ Bonded ✓ Insured</span>
         </div>
       </div>
 
@@ -628,8 +785,7 @@
           </p>
           <p>
             We are a local family-owned business dedicated to providing
-            personalized service and we will be happy to beat any written
-            estimate from a licensed, bonded, and insured competitor.
+            personalized service and exceptional results for every project.
           </p>
           <p>
             We believe that every property has unique potential. Whether you're
@@ -761,6 +917,16 @@
       </div>
 
       <div class="contact-container">
+        <div class="contact-guarantee reveal">
+          <h3>💰 We'll Beat Any Written Estimate!</h3>
+          <p>
+            Provide us with a written quote from any licensed, bonded, and
+            insured competitor, and we'll beat their price. Plus, get a free
+            consultation and detailed project timeline. Family-owned and serving
+            the East Valley for 7+ years.
+          </p>
+        </div>
+
         <form class="contact-form reveal" action="#" method="POST">
           <div class="form-row">
             <div class="form-group">
