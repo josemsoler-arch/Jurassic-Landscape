@@ -927,7 +927,9 @@
           </p>
         </div>
 
-        <form class="contact-form reveal" action="#" method="POST">
+        <form class="contact-form reveal" name="contact" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="contact" />
+          
           <div class="form-row">
             <div class="form-group">
               <label for="firstName">First Name</label>
