@@ -149,6 +149,7 @@ portfolioItems.forEach((item) => {
   item.addEventListener("click", () => {
     const title = item.dataset.title;
     const category = item.dataset.category;
+    const description = item.dataset.description || "";
 
     modalTitle.textContent = title;
     modalCategory.textContent = category;
@@ -195,6 +196,14 @@ portfolioItems.forEach((item) => {
 
       modalGalleryContainer.appendChild(beforeColumn);
       modalGalleryContainer.appendChild(afterColumn);
+
+      // Add description if exists
+      if (description) {
+        const descElement = document.createElement("p");
+        descElement.className = "modal-description";
+        descElement.textContent = description;
+        modalGalleryContainer.insertAdjacentElement("afterend", descElement);
+      }
     }
     // Regular image gallery
     else if (item.dataset.images) {
@@ -208,6 +217,14 @@ portfolioItems.forEach((item) => {
         wrapper.innerHTML = `<img src="${imageSrc}" alt="${title} ${index + 1}" />`;
         modalGalleryContainer.appendChild(wrapper);
       });
+
+      // Add description if exists
+      if (description) {
+        const descElement = document.createElement("p");
+        descElement.className = "modal-description";
+        descElement.textContent = description;
+        modalGalleryContainer.insertAdjacentElement("afterend", descElement);
+      }
     }
 
     modal.classList.add("active");
