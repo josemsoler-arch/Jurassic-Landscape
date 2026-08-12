@@ -142,21 +142,73 @@ document.addEventListener("mouseenter", () => {
 const modal = document.getElementById("portfolioModal");
 const modalTitle = document.getElementById("modalTitle");
 const modalCategory = document.getElementById("modalCategory");
-const beforeImage = document.getElementById("beforeImage");
-const afterImage = document.getElementById("afterImage");
+const modalGalleryContainer = document.getElementById("modalGalleryContainer");
 const portfolioItems = document.querySelectorAll(".portfolio-item.has-modal");
 
 portfolioItems.forEach((item) => {
   item.addEventListener("click", () => {
     const title = item.dataset.title;
     const category = item.dataset.category;
-    const before = item.dataset.before;
-    const after = item.dataset.after;
 
     modalTitle.textContent = title;
     modalCategory.textContent = category;
-    beforeImage.src = before;
-    afterImage.src = after;
+
+    // Clear previous content
+    modalGalleryContainer.innerHTML = "";
+
+    // Check if it's a before/after project
+    if (item.dataset.before && item.dataset.after) {
+      modalGalleryContainer.classList.add("before-after-grid");
+      modalGalleryContainer.classList.remove("image-gallery-grid");
+
+      const beforeColumn = document.createElement("div");
+      beforeColumn.className = "before-column";
+      beforeColumn.innerHTML = '<p class="modal-image-label">BEFORE</p>';
+
+      const afterColumn = document.createElement("div");
+      afterColumn.className = "after-column";
+      afterColumn.innerHTML = '<p class="modal-image-label">AFTER</p>';
+
+      // Add first before/after pair
+      const beforeWrapper = document.createElement("div");
+      beforeWrapper.className = "modal-image-wrapper";
+      beforeWrapper.innerHTML = `<img src="${item.dataset.before}" alt="Before" />`;
+      beforeColumn.appendChild(beforeWrapper);
+
+      const afterWrapper = document.createElement("div");
+      afterWrapper.className = "modal-image-wrapper";
+      afterWrapper.innerHTML = `<img src="${item.dataset.after}" alt="After" />`;
+      afterColumn.appendChild(afterWrapper);
+
+      // Add second before/after pair if exists
+      if (item.dataset.before2 && item.dataset.after2) {
+        const beforeWrapper2 = document.createElement("div");
+        beforeWrapper2.className = "modal-image-wrapper";
+        beforeWrapper2.innerHTML = `<img src="${item.dataset.before2}" alt="Before 2" />`;
+        beforeColumn.appendChild(beforeWrapper2);
+
+        const afterWrapper2 = document.createElement("div");
+        afterWrapper2.className = "modal-image-wrapper";
+        afterWrapper2.innerHTML = `<img src="${item.dataset.after2}" alt="After 2" />`;
+        afterColumn.appendChild(afterWrapper2);
+      }
+
+      modalGalleryContainer.appendChild(beforeColumn);
+      modalGalleryContainer.appendChild(afterColumn);
+    }
+    // Regular image gallery
+    else if (item.dataset.images) {
+      modalGalleryContainer.classList.remove("before-after-grid");
+      modalGalleryContainer.classList.add("image-gallery-grid");
+
+      const images = JSON.parse(item.dataset.images);
+      images.forEach((imageSrc, index) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "modal-image-wrapper";
+        wrapper.innerHTML = `<img src="${imageSrc}" alt="${title} ${index + 1}" />`;
+        modalGalleryContainer.appendChild(wrapper);
+      });
+    }
 
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
