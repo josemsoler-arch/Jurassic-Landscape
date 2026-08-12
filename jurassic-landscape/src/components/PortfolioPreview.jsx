@@ -51,8 +51,8 @@ export default function PortfolioPreview() {
     },
     {
       id: 5,
-      title: "Elegant Landscape Installation",
-      category: "Full Property Design",
+      title: "Outdoor Kitchens",
+      category: "Outdoor Living Spaces",
       images: [
         "/images/PROJECTS FOR WEBSITE/PROJECT 5/IMG_0807.jpeg",
         "/images/PROJECTS FOR WEBSITE/PROJECT 5/IMG_2373.jpeg",
